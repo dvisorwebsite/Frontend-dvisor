@@ -82,7 +82,7 @@ export default function AdvisorLogin() {
               color: '#64748b', 
               lineHeight: '1.5' 
             }}>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link 
                 href="/advisor/signup" 
                 style={{ 
@@ -292,7 +292,7 @@ export default function AdvisorLogin() {
                 fontStyle: 'italic', 
                 lineHeight: '1.5' 
               }}>
-                "Help clients achieve their financial goals while growing your practice."
+                Help clients achieve their financial goals while growing your practice.
               </p>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Avatar } from '@mui/material';
+import Image from 'next/image';
 
 const Dashboard = () => {
   return (

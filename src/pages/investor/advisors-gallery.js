@@ -123,7 +123,7 @@ export default function AdvisorsGallery() {
             </p>
 
             <div style={sectionStyles}>
-                <h2 style={{ marginBottom: '1rem', color: '#333' }}>Advisor's Recommendation</h2>
+                <h2 style={{ marginBottom: '1rem', color: '#333' }}>Advisor&apos;s Recommendation</h2>
                 <div style={sliderStyles}>
                     {advisors.map((advisor) => (
                         <Link 

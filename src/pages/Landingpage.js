@@ -11,15 +11,15 @@ export default function Home() {
 
   useEffect(() => {
     const getAdvisor = async () => {
-        try {
-            const response = await axios.get("https://dvsorwebsite.azurewebsites.net/api/AdvisorInfofive"); 
-            setAdvisor(response.data.advisors);
-        } catch (error) {
-            console.error("Error fetching advisors:", error.response?.data || error.message);
-        }
+      try {
+        const response = await axios.get("https://dvsorwebsite.azurewebsites.net/api/AdvisorInfofive");
+        setAdvisor(response.data.advisors);
+      } catch (error) {
+        console.error("Error fetching advisors:", error.response?.data || error.message);
+      }
     };
     getAdvisor();
-}, []);
+  }, []);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -154,101 +154,61 @@ export default function Home() {
             Featured Advisors
           </h2>
 
-          {/* <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: '1fr', 
-            gap: '32px', 
-            '@media (min-width: 768px)': { gridTemplateColumns: 'repeat(2, 1fr)' },
-            '@media (min-width: 1024px)': { gridTemplateColumns: 'repeat(3, 1fr)' }
-          }}>
-            {[1].map((advisor) => (
+          <div
+            style={{
+              width: '90%',
+              height: '400px',
+              border: '1px solid #ccc',
+              borderRadius: '20px',
+              margin: '0 auto',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              gap: '10px',
+              overflow: 'hidden',
+              overflowX: 'auto',
+              boxSizing: 'border-box',
+              padding: '15px',
+            }}
+          >
+            {Array.from({ length: 3 }, (_, index) => (
               <div
-                key={advisor}
-                style={{ 
-                  backgroundColor: '#ffffff', 
-                  borderRadius: '16px', 
-                  overflow: 'hidden', 
-                  boxShadow: '0 6px 12px rgba(0,0,0,0.1)', 
-                  transition: 'all 0.3s ease', 
-                  ':hover': { boxShadow: '0 12px 24px rgba(0,0,0,0.15)', transform: 'translateY(-4px)' } 
+                key={index} // Added key prop using index
+                style={{
+                  width: '300px',
+                  height: '360px',
+                  border: '1px solid #ccc',
+                  borderRadius: '20px',
+                  boxSizing: 'border-box',
+                  padding: '10px',
                 }}
               >
-                <div style={{ padding: '28px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                    <div style={{ position: 'relative', width: '72px', height: '72px', marginRight: '20px' }}>
-                      <Image
-                        src={`/placeholder.svg?height=72&width=72`}
-                        alt="Advisor"
-                        width={72}
-                        height={72}
-                        style={{ borderRadius: '50%', objectFit: 'cover', border: '2px solid #e2e8f0' }}
-                      />
-                    </div>
-                    <div>
-                      <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>Advisor Name</h3>
-                      <p style={{ fontSize: '14px', color: '#64748b', fontWeight: '500' }}>WealthGrow Inc.</p>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '20px', textAlign: 'center' }}>
-                    <div style={{ backgroundColor: '#f8fafc', padding: '10px', borderRadius: '8px' }}>
-                      <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px' }}>AUM</p>
-                      <p style={{ fontWeight: '600', color: '#0f172a', fontSize: '14px' }}>₹100 Cr</p>
-                    </div>
-                    <div style={{ backgroundColor: '#f8fafc', padding: '10px', borderRadius: '8px' }}>
-                      <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px' }}>Experience</p>
-                      <p style={{ fontWeight: '600', color: '#0f172a', fontSize: '14px' }}>10+ Years</p>
-                    </div>
-                    <div style={{ backgroundColor: '#f8fafc', padding: '10px', borderRadius: '8px' }}>
-                      <p style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px' }}>Clients</p>
-                      <p style={{ fontWeight: '600', color: '#0f172a', fontSize: '14px' }}>500+</p>
-                    </div>
-                  </div>
-
-                  <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '20px', lineHeight: '1.5' }}>
-                    Wealth Management, Retirement Planning, Tax Advisory
-                  </p>
-
-                  <Link
-                    href="/advisor/profile"
-                    style={{ 
-                      display: 'block', 
-                      width: '100%', 
-                      padding: '10px 20px', 
-                      backgroundColor: '#3b82f6', 
-                      color: '#ffffff', 
-                      textAlign: 'center', 
-                      borderRadius: '8px', 
-                      textDecoration: 'none', 
-                      fontWeight: '500', 
-                      fontSize: '15px',
-                      transition: 'all 0.3s ease', 
-                      ':hover': { backgroundColor: '#2563eb', transform: 'scale(1.02)' } 
-                    }}
-                  >
-                    View Profile
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div> */}
-
-          <div style={{ width: '90%', height: '400px', border: '1px solid #ccc', borderRadius: '20px', margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', gap: '10px', overflow: 'hidden', overflowX: 'auto', boxSizing: 'border-box', padding: '15px' }}>
-            {Array.from({ length: 3 }, (_index) => (
-              <div style={{ width: '300px', height: '360px', border: '1px solid #ccc', borderRadius: '20px', boxSizing: 'border-box', padding: '10px' }}>
-                <div className="image-section" style={{ width: '100%', height: '50%' }}>
+                <div
+                  className="image-section"
+                  style={{ width: '100%', height: '50%' }}
+                >
                   {/* <Image src="" alt="#" style={{width:'100%' , height:'100%' , objectFit:'cover'}}/> */}
-                  <div style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: '#ccc', borderRadius: '10px' }}></div>
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      backgroundColor: '#ccc',
+                      borderRadius: '10px',
+                    }}
+                  ></div>
                 </div>
                 <div className="info-section">
-                  <p style={{ fontSize: '20px', fontWeight: 'bold' }}>Advisor Name</p>
+                  <p style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                    Advisor Name
+                  </p>
                   <p style={{ fontSize: '16px' }}>Advisor Name</p>
                   <p style={{ fontSize: '16px' }}>Advisor Name</p>
                 </div>
               </div>
             ))}
           </div>
-
           <div style={{ marginTop: '40px', textAlign: 'center' }}>
             <Link
               href="/criteria-form"

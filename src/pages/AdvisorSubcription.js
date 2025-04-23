@@ -218,7 +218,7 @@ export default function Registration() {
                 marginBottom: "16px",
               }}
             >
-              What's included:
+              What&apos;s included:
             </h3>
 
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>

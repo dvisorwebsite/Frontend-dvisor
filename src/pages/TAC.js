@@ -106,11 +106,11 @@ export default function TermsAndConditions() {
       <section style={styles.section}>
         <h2 style={styles.heading2}>1. Introduction</h2>
         <p style={styles.paragraph}>
-          Welcome to Dvisor! These Terms and Conditions ("Terms") govern your use of our website{" "}
+          Welcome to Dvisor These Terms and Conditions govern your use of our website{" "}
           <a href="http://www.dvisor.in" style={{ color: "#3182ce", textDecoration: "underline" }}>
             www.dvisor.in
           </a>{" "}
-          and any related services provided by Dvisor (collectively, the "Services"). By accessing or using our Services,
+          and any related services provided by Dvisor. By accessing or using our Services,
           you agree to be bound by these Terms. If you disagree with any part, we kindly ask you to refrain from using our Services.
         </p>
       </section>
@@ -119,13 +119,13 @@ export default function TermsAndConditions() {
         <h2 style={styles.heading2}>2. Definitions</h2>
         <ul style={styles.list}>
           <li style={styles.listItem}>
-            <strong>"Dvisor," "we," "our," "us":</strong> Refers to [Your Company Name], the provider of these Services.
+            <strong>&quotDvisor,&quot &quotwe,&quot &quotour,&quot &quotus&quot:</strong> Refers to [Your Company Name], the provider of these Services.
           </li>
           <li style={styles.listItem}>
-            <strong>"User," "you," "your":</strong> Refers to anyone accessing or utilizing our Services.
+            <strong>&quotUser,&quot &quotyou,&quot &quotyour&quot:</strong> Refers to anyone accessing or utilizing our Services.
           </li>
           <li style={styles.listItem}>
-            <strong>"Content":</strong> Includes all text, graphics, images, software, and materials available through the Services.
+            <strong>&quotContent&quot:</strong> Includes all text, graphics, images, software, and materials available through the Services.
           </li>
         </ul>
       </section>

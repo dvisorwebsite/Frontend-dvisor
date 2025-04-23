@@ -314,7 +314,7 @@ export default function InvestorSignup() {
                 fontStyle: 'italic', 
                 lineHeight: '1.5' 
               }}>
-                "Take the first step towards financial success."
+                Take the first step towards financial success.
               </p>
             </div>
           </div>

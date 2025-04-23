@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MessageCircle, Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
+import Image from 'next/image';
 
 export default function Contact() {
   const [formData, setFormData] = useState({

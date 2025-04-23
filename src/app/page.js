@@ -463,7 +463,7 @@ export default function Home() {
                   animationDelay: '3s',
                 }}
               >
-                ✅ Okay, let's connect
+                ✅ Okay, let&apos;s connect
               </div>
             </div>
           </div>
@@ -591,7 +591,7 @@ export default function Home() {
                   lineHeight: '1.6',
                 }}
               >
-                "Working with my advisor was a game-changer! They tailored a plan that perfectly fit my goals."
+                Working with my advisor was a game-changer! They tailored a plan that perfectly fit my goals.
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Image
@@ -628,7 +628,7 @@ export default function Home() {
                   lineHeight: '1.6',
                 }}
               >
-                "The video call feature made it so easy to connect. My advisor was knowledgeable and supportive."
+                The video call feature made it so easy to connect. My advisor was knowledgeable and supportive.
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Image
@@ -665,7 +665,7 @@ export default function Home() {
                   lineHeight: '1.6',
                 }}
               >
-                "I found the perfect advisor in just a few clicks. Highly recommend this platform!"
+              <div>{`  "I found the perfect advisor in just a few clicks. Highly recommend this platform"`}</div>
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <Image
