@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function AdvisorSignup() {
@@ -28,6 +28,8 @@ export default function AdvisorSignup() {
     },
     introVideo: null,
   });
+  const [isMounted, setIsMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -115,133 +117,326 @@ export default function AdvisorSignup() {
     });
   };
 
-  const inputStyle = {
-    padding: "10px 14px",
-    border: "1px solid #d1d5db",
-    borderRadius: "8px",
-    width: "100%",
-    fontSize: "15px",
-    backgroundColor: "#ffffff",
-    color: "#0f172a",
-    outline: "none",
-    transition: "all 0.3s ease",
-    boxSizing: "border-box",
+  // Set isMounted to true after component mounts
+  useEffect(() => {
+    setIsMounted(true);
+    setWindowWidth(window.innerWidth);
+    
+    // Add resize event listener
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Clean up event listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Base styles that don't depend on window width
+  const styles = {
+    container: {
+      display: 'flex',
+      minHeight: 'calc(100vh - 4rem)',
+      backgroundColor: '#f9fafb',
+      flexDirection: 'column',
+      overflow: 'hidden',
+    },
+    formSection: {
+      flex: '1',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      padding: '20px',
+      boxSizing: 'border-box',
+      width: '100%',
+      overflowY: 'auto',
+    },
+    formWrapper: {
+      margin: '0 auto',
+      width: '100%',
+      maxWidth: '100%',
+    },
+    heading: {
+      marginTop: '16px',
+      fontSize: '24px',
+      fontWeight: '800',
+      color: '#0f172a',
+      lineHeight: '1.2',
+      letterSpacing: '-0.5px',
+    },
+    subtext: {
+      marginTop: '8px',
+      fontSize: '14px',
+      color: '#64748b',
+      lineHeight: '1.5',
+    },
+    linkStyle: {
+      fontWeight: '500',
+      color: '#1e40af',
+      textDecoration: 'none',
+    },
+    formContainer: {
+      marginTop: '24px',
+    },
+    formGroup: {
+      marginBottom: '20px',
+      position: 'relative',
+    },
+    label: {
+      display: 'block',
+      fontSize: '14px',
+      fontWeight: '500',
+      color: '#334155',
+      marginBottom: '6px',
+    },
+    input: {
+      width: '100%',
+      padding: '10px 14px',
+      border: '1px solid #d1d5db',
+      borderRadius: '8px',
+      fontSize: '15px',
+      color: '#0f172a',
+      backgroundColor: '#ffffff',
+      boxSizing: 'border-box',
+    },
+    fileInput: {
+      width: '100%',
+      padding: '10px 14px',
+      border: '1px solid #d1d5db',
+      borderRadius: '8px',
+      fontSize: '15px',
+      color: '#0f172a',
+      backgroundColor: '#ffffff',
+      boxSizing: 'border-box',
+      cursor: 'pointer',
+    },
+    textarea: {
+      width: '100%',
+      padding: '10px 14px',
+      border: '1px solid #d1d5db',
+      borderRadius: '8px',
+      fontSize: '15px',
+      color: '#0f172a',
+      backgroundColor: '#ffffff',
+      minHeight: '100px',
+      resize: 'vertical',
+      boxSizing: 'border-box',
+    },
+    checkbox: {
+      height: '16px',
+      width: '16px',
+      accentColor: '#1e40af',
+      border: '1px solid #d1d5db',
+      borderRadius: '4px',
+      cursor: 'pointer',
+      marginRight: '10px',
+    },
+    radio: {
+      height: '16px',
+      width: '16px',
+      accentColor: '#1e40af',
+      border: '1px solid #d1d5db',
+      borderRadius: '4px',
+      cursor: 'pointer',
+      marginRight: '10px',
+    },
+    checkboxContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px',
+    },
+    radioContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px',
+    },
+    checkboxLabel: {
+      fontSize: '15px',
+      color: '#0f172a',
+    },
+    button: {
+      width: '100%',
+      backgroundColor: '#1e40af',
+      color: '#ffffff',
+      padding: '12px 20px',
+      borderRadius: '8px',
+      border: 'none',
+      fontSize: '16px',
+      fontWeight: '500',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+    },
+    rightPanel: {
+      display: 'none',
+      position: 'relative',
+      height: '300px',
+      width: '100%',
+    },
+    rightPanelContent: {
+      position: 'absolute',
+      inset: 0,
+      height: '100vh',
+      width: '100%',
+      background: 'linear-gradient(to right, #1e40af, #1e3a8a)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
+      boxSizing: 'border-box',
+    },
+    welcomeContent: {
+      maxWidth: '100%',
+      padding: '20px',
+      color: '#ffffff',
+      textAlign: 'left',
+    },
+    welcomeHeading: {
+      fontSize: '24px',
+      fontWeight: '700',
+      marginBottom: '16px',
+      lineHeight: '1.2',
+      letterSpacing: '-0.5px',
+    },
+    welcomeText: {
+      fontSize: '16px',
+      color: '#dbeafe',
+      marginBottom: '24px',
+      lineHeight: '1.6',
+    },
+    fileSizeHint: {
+      position: 'absolute',
+      right: '10px',
+      top: '40px',
+      fontSize: '12px',
+      color: '#64748b',
+    },
+    returnsGroup: {
+      display: 'flex',
+      gap: '10px',
+    },
+    returnsInput: {
+      flex: 1,
+    },
+    returnsLabel: {
+      fontSize: '13px',
+      display: 'block',
+      marginBottom: '4px',
+    },
+  };
+  
+  // Default styles for server-side rendering
+  const defaultContainerStyle = {
+    ...styles.container,
+  };
+  
+  const defaultFormSectionStyle = {
+    ...styles.formSection,
+  };
+  
+  const defaultFormWrapperStyle = {
+    ...styles.formWrapper,
+  };
+  
+  const defaultHeadingStyle = {
+    ...styles.heading,
+  };
+  
+  const defaultRightPanelStyle = {
+    ...styles.rightPanel,
   };
 
-  const fileInputStyle = {
-    padding: "10px 14px",
-    border: "1px solid #d1d5db",
-    borderRadius: "8px",
-    width: "100%",
-    fontSize: "15px",
-    backgroundColor: "#ffffff",
-    color: "#0f172a",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
+  // Compute responsive styles based on window width
+  const getResponsiveStyles = (width) => {
+    const isMobile = width < 640;
+    const isTablet = width >= 640 && width < 1024;
+    const isDesktop = width >= 1024;
+    
+    return {
+      containerStyle: {
+        ...styles.container,
+        flexDirection: isDesktop ? 'row' : 'column',
+      },
+      formSectionStyle: {
+        ...styles.formSection,
+        padding: isMobile ? '20px' : isTablet ? '32px' : '48px 80px',
+      },
+      formWrapperStyle: {
+        ...styles.formWrapper,
+        maxWidth: isMobile ? '100%' : isTablet ? '90%' : '448px',
+      },
+      headingStyle: {
+        ...styles.heading,
+        fontSize: isMobile ? '22px' : isTablet ? '26px' : '30px',
+      },
+      rightPanelStyle: {
+        ...styles.rightPanel,
+        display: isDesktop ? 'block' : 'none',
+        height: isDesktop ? 'auto' : '300px',
+        width: isDesktop ? '0' : '100%',
+        flex: isDesktop ? '1' : 'none',
+      },
+      buttonStyle: {
+        ...styles.button,
+        fontSize: isMobile ? '15px' : '16px',
+        padding: isMobile ? '10px 16px' : '12px 20px',
+      },
+      welcomeHeadingStyle: {
+        ...styles.welcomeHeading,
+        fontSize: width < 1280 ? '26px' : '30px',
+      },
+      welcomeContentStyle: {
+        maxWidth: width >= 1280 ? '448px' : '90%',
+        padding: width >= 1280 ? '32px' : '20px',
+        color: '#ffffff',
+        textAlign: 'left',
+      }
+    };
   };
 
-  const textareaStyle = {
-    padding: "10px 14px",
-    border: "1px solid #d1d5db",
-    borderRadius: "8px",
-    width: "100%",
-    fontSize: "15px",
-    backgroundColor: "#ffffff",
-    color: "#0f172a",
-    minHeight: "100px",
-    outline: "none",
-    resize: "vertical",
-    transition: "all 0.3s ease",
-    boxSizing: "border-box",
-  };
-
-  const checkboxStyle = {
-    marginRight: "10px",
-    height: "16px",
-    width: "16px",
-    accentColor: "#1e40af",
-    cursor: "pointer",
-  };
-
-  const radioStyle = {
-    marginRight: "10px",
-    height: "16px",
-    width: "16px",
-    accentColor: "#1e40af",
-    cursor: "pointer",
+  // Use responsive styles if component is mounted (client-side)
+  const {
+    containerStyle,
+    formSectionStyle,
+    formWrapperStyle,
+    headingStyle,
+    rightPanelStyle,
+    buttonStyle,
+    welcomeHeadingStyle,
+    welcomeContentStyle
+  } = isMounted ? getResponsiveStyles(windowWidth) : {
+    containerStyle: defaultContainerStyle,
+    formSectionStyle: defaultFormSectionStyle,
+    formWrapperStyle: defaultFormWrapperStyle,
+    headingStyle: defaultHeadingStyle,
+    rightPanelStyle: defaultRightPanelStyle,
+    buttonStyle: styles.button,
+    welcomeHeadingStyle: styles.welcomeHeading,
+    welcomeContentStyle: styles.welcomeContent
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        minHeight: "calc(100vh - 4rem)",
-        backgroundColor: "#f9fafb",
-        flexDirection: "row",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          flex: "1",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "48px 16px",
-          overflowY: "auto",
-        }}
-      >
-        <div style={{ margin: "0 auto", width: "100%", maxWidth: "448px" }}>
+    <div style={containerStyle}>
+      <div style={formSectionStyle}>
+        <div style={formWrapperStyle}>
           <div>
-            <h2
-              style={{
-                marginTop: "24px",
-                fontSize: "30px",
-                fontWeight: "800",
-                color: "#0f172a",
-                lineHeight: "1.2",
-              }}
-            >
+            <h2 style={headingStyle}>
               Advisor Signup
             </h2>
-            <p
-              style={{
-                marginTop: "8px",
-                fontSize: "14px",
-                color: "#64748b",
-              }}
-            >
+            <p style={styles.subtext}>
               Already have an account?{" "}
-              <Link
-                href="/advisor/login"
-                style={{
-                  fontWeight: "500",
-                  color: "#1e40af",
-                  textDecoration: "none",
-                  transition: "color 0.3s ease",
-                }}
-              >
+              <Link href="/advisor/login" style={styles.linkStyle}>
                 Sign in
               </Link>
             </p>
           </div>
 
-          <div style={{ marginTop: "32px" }}>
-            <form
-              onSubmit={handleSubmit}
-              style={{ display: "flex", flexDirection: "column", gap: "24px" }}
-            >
-              <div style={{ position: "relative" }}>
-                <label
-                  htmlFor="profilePicture"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+          <div style={styles.formContainer}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={styles.formGroup}>
+                <label htmlFor="profilePicture" style={styles.label}>
                   Profile Picture
                 </label>
                 <input
@@ -250,40 +445,14 @@ export default function AdvisorSignup() {
                   type="file"
                   accept="image/*"
                   onChange={handleChange}
-                  style={{
-                    ...fileInputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.fileInput}
                   required
                 />
-                <span
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "40px",
-                    fontSize: "12px",
-                    color: "#64748b",
-                  }}
-                >
-                  Max 2MB
-                </span>
+                <span style={styles.fileSizeHint}>Max 2MB</span>
               </div>
 
-              <div style={{ position: "relative" }}>
-                <label
-                  htmlFor="backgroundPicture"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="backgroundPicture" style={styles.label}>
                   Background Picture
                 </label>
                 <input
@@ -292,40 +461,14 @@ export default function AdvisorSignup() {
                   type="file"
                   accept="image/*"
                   onChange={handleChange}
-                  style={{
-                    ...fileInputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.fileInput}
                   required
                 />
-                <span
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "40px",
-                    fontSize: "12px",
-                    color: "#64748b",
-                  }}
-                >
-                  Max 2MB
-                </span>
+                <span style={styles.fileSizeHint}>Max 2MB</span>
               </div>
 
-              <div>
-                <label
-                  htmlFor="name"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="name" style={styles.label}>
                   Full Name
                 </label>
                 <input
@@ -335,28 +478,12 @@ export default function AdvisorSignup() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="email" style={styles.label}>
                   Email address
                 </label>
                 <input
@@ -366,28 +493,12 @@ export default function AdvisorSignup() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="password"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="password" style={styles.label}>
                   Password
                 </label>
                 <input
@@ -397,28 +508,12 @@ export default function AdvisorSignup() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="phone"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="phone" style={styles.label}>
                   Phone Number
                 </label>
                 <input
@@ -427,28 +522,12 @@ export default function AdvisorSignup() {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="companyName"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="companyName" style={styles.label}>
                   Company Name
                 </label>
                 <input
@@ -457,28 +536,12 @@ export default function AdvisorSignup() {
                   type="text"
                   value={formData.companyName}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="certificationType"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="certificationType" style={styles.label}>
                   Certification Type
                 </label>
                 <input
@@ -487,28 +550,12 @@ export default function AdvisorSignup() {
                   type="text"
                   value={formData.certificationType}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="ARN"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="ARN" style={styles.label}>
                   ARN
                 </label>
                 <input
@@ -517,28 +564,12 @@ export default function AdvisorSignup() {
                   type="text"
                   value={formData.ARN}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="numberOfClients"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="numberOfClients" style={styles.label}>
                   Number of Clients
                 </label>
                 <input
@@ -547,28 +578,12 @@ export default function AdvisorSignup() {
                   type="number"
                   value={formData.numberOfClients}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="totalAUM"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="totalAUM" style={styles.label}>
                   Total AUM
                 </label>
                 <input
@@ -577,28 +592,12 @@ export default function AdvisorSignup() {
                   type="number"
                   value={formData.totalAUM}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="experienceYears"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="experienceYears" style={styles.label}>
                   Years of Experience
                 </label>
                 <input
@@ -607,34 +606,19 @@ export default function AdvisorSignup() {
                   type="number"
                   value={formData.experienceYears}
                   onChange={handleChange}
-                  style={{
-                    ...inputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.input}
                 />
               </div>
 
-              <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label style={styles.label}>
                   Fees Structure
                 </label>
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                <div style={styles.radioContainer}>
                   {["Commission based", "Fees Based", "Profit Sharing"].map((fee) => (
                     <label
                       key={fee}
-                      style={{ display: "flex", alignItems: "center", fontSize: "15px", color: "#0f172a" }}
+                      style={styles.checkboxLabel}
                     >
                       <input
                         type="radio"
@@ -642,7 +626,7 @@ export default function AdvisorSignup() {
                         value={fee}
                         checked={formData.feesStructure === fee}
                         onChange={handleChange}
-                        style={{ ...radioStyle }}
+                        style={styles.radio}
                       />
                       {fee}
                     </label>
@@ -650,19 +634,11 @@ export default function AdvisorSignup() {
                 </div>
               </div>
 
-              <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label style={styles.label}>
                   Services Offered
                 </label>
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                <div style={styles.checkboxContainer}>
                   {[
                     "Mutual Funds",
                     "Investment Planning",
@@ -672,13 +648,13 @@ export default function AdvisorSignup() {
                   ].map((service) => (
                     <label
                       key={service}
-                      style={{ display: "flex", alignItems: "center", fontSize: "15px", color: "#0f172a" }}
+                      style={styles.checkboxLabel}
                     >
                       <input
                         type="checkbox"
                         checked={formData.servicesOffered.includes(service)}
                         onChange={() => handleServicesChange(service)}
-                        style={{ ...checkboxStyle }}
+                        style={styles.checkbox}
                       />
                       {service}
                     </label>
@@ -686,17 +662,8 @@ export default function AdvisorSignup() {
                 </div>
               </div>
 
-              <div>
-                <label
-                  htmlFor="firstMeetingProcess"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="firstMeetingProcess" style={styles.label}>
                   First Meeting Process
                 </label>
                 <textarea
@@ -704,28 +671,12 @@ export default function AdvisorSignup() {
                   name="firstMeetingProcess"
                   value={formData.firstMeetingProcess}
                   onChange={handleChange}
-                  style={{
-                    ...textareaStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.textarea}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="expertise"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="expertise" style={styles.label}>
                   Expertise
                 </label>
                 <textarea
@@ -733,34 +684,19 @@ export default function AdvisorSignup() {
                   name="expertise"
                   value={formData.expertise}
                   onChange={handleChange}
-                  style={{
-                    ...textareaStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.textarea}
                 />
               </div>
 
-              <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label style={styles.label}>
                   Returns Generated (%)
                 </label>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <div style={{ flex: 1 }}>
+                <div style={styles.returnsGroup}>
+                  <div style={styles.returnsInput}>
                     <label
                       htmlFor="returnsGenerated.threeYears"
-                      style={{ fontSize: "13px", display: "block", marginBottom: "4px" }}
+                      style={styles.returnsLabel}
                     >
                       3 Years
                     </label>
@@ -771,21 +707,14 @@ export default function AdvisorSignup() {
                       step="0.1"
                       value={formData.returnsGenerated.threeYears}
                       onChange={handleChange}
-                      style={{
-                        ...inputStyle,
-                        ":hover": { borderColor: "#9ca3af" },
-                        ":focus": {
-                          borderColor: "#3b82f6",
-                          boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                        },
-                      }}
+                      style={styles.input}
                       required
                     />
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div style={styles.returnsInput}>
                     <label
                       htmlFor="returnsGenerated.fiveYears"
-                      style={{ fontSize: "13px", display: "block", marginBottom: "4px" }}
+                      style={styles.returnsLabel}
                     >
                       5 Years
                     </label>
@@ -796,21 +725,14 @@ export default function AdvisorSignup() {
                       step="0.1"
                       value={formData.returnsGenerated.fiveYears}
                       onChange={handleChange}
-                      style={{
-                        ...inputStyle,
-                        ":hover": { borderColor: "#9ca3af" },
-                        ":focus": {
-                          borderColor: "#3b82f6",
-                          boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                        },
-                      }}
+                      style={styles.input}
                       required
                     />
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div style={styles.returnsInput}>
                     <label
                       htmlFor="returnsGenerated.tenYears"
-                      style={{ fontSize: "13px", display: "block", marginBottom: "4px" }}
+                      style={styles.returnsLabel}
                     >
                       10 Years
                     </label>
@@ -821,31 +743,15 @@ export default function AdvisorSignup() {
                       step="0.1"
                       value={formData.returnsGenerated.tenYears}
                       onChange={handleChange}
-                      style={{
-                        ...inputStyle,
-                        ":hover": { borderColor: "#9ca3af" },
-                        ":focus": {
-                          borderColor: "#3b82f6",
-                          boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                        },
-                      }}
+                      style={styles.input}
                       required
                     />
                   </div>
                 </div>
               </div>
 
-              <div style={{ position: "relative" }}>
-                <label
-                  htmlFor="introVideo"
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#334155",
-                    marginBottom: "6px",
-                  }}
-                >
+              <div style={styles.formGroup}>
+                <label htmlFor="introVideo" style={styles.label}>
                   Introduction Video (Optional)
                 </label>
                 <input
@@ -854,45 +760,13 @@ export default function AdvisorSignup() {
                   type="file"
                   accept="video/*"
                   onChange={handleChange}
-                  style={{
-                    ...fileInputStyle,
-                    ":hover": { borderColor: "#9ca3af" },
-                    ":focus": {
-                      borderColor: "#3b82f6",
-                      boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.3)",
-                    },
-                  }}
+                  style={styles.fileInput}
                 />
-                <span
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "40px",
-                    fontSize: "12px",
-                    color: "#64748b",
-                  }}
-                >
-                  Max 5MB
-                </span>
+                <span style={styles.fileSizeHint}>Max 5MB</span>
               </div>
 
               <div>
-                <button
-                  type="submit"
-                  style={{
-                    width: "100%",
-                    backgroundColor: "#1e40af",
-                    color: "#ffffff",
-                    padding: "12px 20px",
-                    borderRadius: "8px",
-                    border: "none",
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    ":hover": { backgroundColor: "#1e3a8a", transform: "scale(1.02)" },
-                  }}
-                >
+                <button type="submit" style={buttonStyle}>
                   Sign Up
                 </button>
               </div>
@@ -901,51 +775,13 @@ export default function AdvisorSignup() {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "none",
-          "@media (min-width: 1024px)": { display: "block" },
-          position: "relative",
-          width: "0",
-          flex: "1",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            height: "100%",
-            width: "100%",
-            background: "linear-gradient(to right, #1e40af, #1e3a8a)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              maxWidth: "448px",
-              padding: "32px",
-              color: "#ffffff",
-              textAlign: "left",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "30px",
-                fontWeight: "700",
-                marginBottom: "16px",
-              }}
-            >
+      <div style={rightPanelStyle}>
+        <div style={styles.rightPanelContent}>
+          <div style={welcomeContentStyle}>
+            <h2 style={welcomeHeadingStyle}>
               Join as an Advisor
             </h2>
-            <p
-              style={{
-                fontSize: "16px",
-                color: "#dbeafe",
-                marginBottom: "24px",
-              }}
-            >
+            <p style={styles.welcomeText}>
               Create your profile and start connecting with clients today.
             </p>
           </div>
